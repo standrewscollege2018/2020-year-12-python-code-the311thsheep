@@ -1,5 +1,5 @@
 #bookstore
-#18/2/2020
+#21/2/2020
 
 #asks again if user enters str or 
 #out of range when asking for int
@@ -33,8 +33,31 @@ def print_titles(index = None):
 # booklist [book][author][price]
 booklist = [["Divergent", "Veronica Roth", 20], ["Fairest", "Marissa Meyer", 25], ["Harrry Potter and the Chamber of Secrets", "J.K Rowling", 30]]
 
+#list of login usernames
+username_list = ["username"]
+#list of login usernames
+password_list = ["password"]
+#constant that says if logged in
+not_logged_in = True
 
 while True:
+    #login
+    while not_logged_in == True:
+        #enter username 
+        user_name = input("enter your username: ")
+        #username not in list - ask again
+        if user_name not in username_list:
+            print ("that is not a valid username")
+            continue
+        #ask for password
+        password = input("enter your password: ")
+        #password not in password list (user_name index)
+        if password == password_list[username_list.index(user_name)]:
+            print ("correct login")
+            not_logged_in = False
+        else:
+            print ("incorrect password")
+    
     #tells user options of program
     user_input = get_correct_input("\nthis program lets you: \n 1) print all titles \n 2) view specific title \n 3) add book titles to a list \n 4) edit existing titles \n 5) delete titles \n 6) quit the program. \n >>>: ", 6)
     
