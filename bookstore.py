@@ -1,5 +1,5 @@
-#bookstore
-#21/2/2020
+"""bookstore."""
+"""21/2/2020"""
 
 #asks again if user enters str or 
 #out of range when asking for int
@@ -71,7 +71,7 @@ while True:
         print_titles(0)
         #ask what book they want to view
         selected_book = get_correct_input("enter the number of the book you want to view: ", len(booklist))
-        print (booklist[selected_book])
+        print (booklist[selected_book][0], "-", booklist[selected_book][1], "- $", booklist[selected_book][2])
         
     #add title to the list     
     elif user_input == 2:
