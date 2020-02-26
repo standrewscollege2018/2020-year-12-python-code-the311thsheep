@@ -32,20 +32,48 @@ def get_correct_input(prompt, length = 10000):
                 print ("that value is not in range")        
     return value 
 
+#prints options and 
 #asks user to choose an option
 def ask_for_data(what_choosing, l):
-    print ("choose a ", what_choosing, "for your trip: ")
-    for i in range (0, len(%l)):
-        print(i, ") ", l[i][0], ", $", l[i][1])
+    print ("\n choose", what_choosing, "for your trip: ")
+    for i in range(0, len(l)):
+        print(i+1, ") ", l[i][0], ", $", l[i][1])
+    print (">>>: ")
         
+        
+
     
-get_correct_input(ask_for_data("start point", start_point_list), len(start_point_list))
+#user chooses start point    
+start_point = get_correct_input(ask_for_data("a start point", start_point_list), len(start_point_list))
+print ("you chose ", start_point_list[start_point])
+#adds choice to choices_list
+choices_list.append(start_point_list[start_point])
+start_point_cost = start_point_list[start_point][1]
 
 
+
+#user chooses destination    
+destination = get_correct_input(ask_for_data("a destination", destination_list), len(destination_list))
+print ("you chose ", destination_list[destination])
+#adds choice to choices_list
+choices_list.append(destination_list[destination])
+destination_cost = destination_list[destination][1]
+#adds accomodation to choices list
+choices_list.append(accomodation_list[destination])
+accomodation_cost = accomoadtion_list[destination][1]
+
+
+#choose how many nights they will be staying 
+trip_length = get_correct_input("how many nights will you be staying here? ") + 1 
+print ("you said you would be staying for", trip_length, "nights")
+choices_list.append(trip_length)
+
+print (choices_list)
   
-    #add a student 
-    #new_choice = input()
-    #new_score = int(input("type the score of the new student: "))
-    #students.append([new_student, new_score])
-    #prints all students
-    #print_students()
+
+if trip_length > 2:
+    trip_cost = start_point_cost + destination_cost + (accomodation_cost * 0.8 * trip_length)
+else:
+    trip_cost = start_point_cost + destination_cost + (accomodation_cost * trip_length)
+    
+print("your trip costs :"
