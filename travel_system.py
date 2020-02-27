@@ -14,8 +14,6 @@ destination_list = [["Sydney", 326], ["Tonga", 378], ["Shanghai", 1436], ["Londo
 #accomodation_list[place][cost]
 accomodation_list = [["Sydney", 120], ["Tonga", 40], ["Shanghai", 60], ["London", 80]]
 
-#user choices list
-choices_list = []
 
 #asks again if user enters str or 
 #out of range when asking for int
@@ -47,7 +45,6 @@ def ask_for_data(what_choosing, l):
 start_point = get_correct_input(ask_for_data("a start point", start_point_list), len(start_point_list))
 print ("you chose ", start_point_list[start_point])
 #adds choice to choices_list
-choices_list.append(start_point_list[start_point])
 start_point_cost = start_point_list[start_point][1]
 
 
@@ -56,19 +53,17 @@ start_point_cost = start_point_list[start_point][1]
 destination = get_correct_input(ask_for_data("a destination", destination_list), len(destination_list))
 print ("you chose ", destination_list[destination])
 #adds choice to choices_list
-choices_list.append(destination_list[destination])
 destination_cost = destination_list[destination][1]
 #adds accomodation to choices list
-choices_list.append(accomodation_list[destination])
-accomodation_cost = accomoadtion_list[destination][1]
+accomodation_cost = accomodation_list[destination][1]
 
 
 #choose how many nights they will be staying 
 trip_length = get_correct_input("how many nights will you be staying here? ") + 1 
 print ("you said you would be staying for", trip_length, "nights")
-choices_list.append(trip_length)
 
-print (choices_list)
+
+
   
 
 if trip_length > 2:
@@ -76,4 +71,15 @@ if trip_length > 2:
 else:
     trip_cost = start_point_cost + destination_cost + (accomodation_cost * trip_length)
     
-print("your trip costs :"
+    
+#print costs    
+print("\nyour trip costs : $", trip_cost, "total")
+if start_point != 0:
+    print("\nthe connecting flight from", start_point_list[start_point][0], "to Auckland cost $", start_point_cost)
+print("\nyour flight to", destination_list[destination][0], "from Auckland cost $", destination_cost)
+print("\nyour accomodation cost $", accomodation_cost, "per night")
+if trip_length > 2:
+    print ("\nyou got 20% off the accomodation cost because you stayed more than 2 nights")
+    print ("this meant your accomodation cost $", accomodation_cost, "x 0.8 x ", "trip_length = $", (accomodation_cost * 0.8 * trip_length))
+else:
+    print ("\nyour accomodation cost $", accomodation_cost, "x", trip_length, "= $", (accomodation_cost * trip_length))
