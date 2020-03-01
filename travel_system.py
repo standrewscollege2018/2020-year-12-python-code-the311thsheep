@@ -36,30 +36,33 @@ def ask_for_data(what_choosing, l):
     print ("\n choose", what_choosing, "for your trip: ")
     for i in range(0, len(l)):
         print(i+1, ") ", l[i][0], ", $", l[i][1])
-    print (">>>: ")
+   
         
         
 
     
-#user chooses start point    
-start_point = get_correct_input(ask_for_data("a start point", start_point_list), len(start_point_list))
+#user chooses start point  
+ask = ask_for_data("a start point", start_point_list)
+
+start_point = get_correct_input(">>>: ", len(start_point_list))
 print ("you chose ", start_point_list[start_point])
-#adds choice to choices_list
+#finds startpoint connection flight cost
 start_point_cost = start_point_list[start_point][1]
 
 
 
-#user chooses destination    
-destination = get_correct_input(ask_for_data("a destination", destination_list), len(destination_list))
+#user chooses destination 
+ask = ask_for_data("a destination", destination_list)
+destination = get_correct_input(">>>: ", len(destination_list))
 print ("you chose ", destination_list[destination])
-#adds choice to choices_list
+#finds destination flight cost
 destination_cost = destination_list[destination][1]
-#adds accomodation to choices list
+#finds accomodation cost
 accomodation_cost = accomodation_list[destination][1]
 
 
 #choose how many nights they will be staying 
-trip_length = get_correct_input("how many nights will you be staying here? ") + 1 
+trip_length = get_correct_input("\nhow many nights will you be staying here? \n>>>: ") + 1 
 print ("you said you would be staying for", trip_length, "nights")
 
 
@@ -73,7 +76,8 @@ else:
     
     
 #print costs    
-print("\nyour trip costs : $", trip_cost, "total")
+print("\nyour trip costs : $", trip_cost, "total (including GST)")
+print ("\n\nCOST BREAKDOWN \n(all costs include GST)")
 if start_point != 0:
     print("\nthe connecting flight from", start_point_list[start_point][0], "to Auckland cost $", start_point_cost)
 print("\nyour flight to", destination_list[destination][0], "from Auckland cost $", destination_cost)
