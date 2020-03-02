@@ -17,8 +17,7 @@ accomodation_list = [["Sydney", 120], ["Tonga", 40], ["Shanghai", 60], ["London"
 #money off if user stays more than 2 nights
 ACCOMODATION_BONUS = 0.8
 
-#asks again if user enters str or 
-#out of range when asking for int
+"""asks again if user enters str or out of range value when asking for int"""
 def get_correct_input(prompt, length = 10000):
     while True:
         try:
@@ -32,8 +31,7 @@ def get_correct_input(prompt, length = 10000):
                 print ("that value is not in range")        
     return value 
 
-#prints options and 
-#asks user to choose an option
+"""prints options and asks user to choose an option """
 def ask_for_data(what_choosing, l):
     print ("\n choose", what_choosing, "for your trip: ")
     for i in range(0, len(l)):
@@ -96,7 +94,7 @@ print("\nyour accomodation cost $", accomodation_cost, "per night")
 
 #adds 2+ nights cost reduction
 if trip_length > 2:
-    print ("\nyou got 20% off the accomodation cost because you stayed more than 2 nights")
+    print ("\nyour accomodation cost ", ACCOMODATION_BONUS * 100, "% of the original cost because you stayed more than 2 nights")
     print ("this meant your accomodation cost $", accomodation_cost, "x", ACCOMODATION_BONUS, "x trip_length (", trip_length,"nights ) = $", trip_cost)
 else:
     print ("\nyour accomodation cost $", accomodation_cost, "x trip_length (", trip_length,"nights ) = $", trip_cost)
