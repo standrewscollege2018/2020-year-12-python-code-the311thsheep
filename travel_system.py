@@ -14,6 +14,8 @@ destination_list = [["Sydney", 326], ["Tonga", 378], ["Shanghai", 1436], ["Londo
 #accomodation_list[place][cost]
 accomodation_list = [["Sydney", 120], ["Tonga", 40], ["Shanghai", 60], ["London", 80]]
 
+#money off if user stays more than 2 nights
+ACCOMODATION_BONUS = 0.8
 
 #asks again if user enters str or 
 #out of range when asking for int
@@ -77,7 +79,7 @@ print ("you said you would be staying for", trip_length, "nights")
   
 #calculate total costs 
 if trip_length > 2:
-    trip_cost = start_point_cost + destination_cost + (accomodation_cost * 0.8 * trip_length)
+    trip_cost = start_point_cost + destination_cost + (accomodation_cost * ACCOMODATION_BONUS * trip_length)
 else:
     trip_cost = start_point_cost + destination_cost + (accomodation_cost * trip_length)
     
@@ -95,6 +97,8 @@ print("\nyour accomodation cost $", accomodation_cost, "per night")
 #adds 2+ nights cost reduction
 if trip_length > 2:
     print ("\nyou got 20% off the accomodation cost because you stayed more than 2 nights")
-    print ("this meant your accomodation cost $", accomodation_cost, "x 0.8 x ", "trip_length = $", (accomodation_cost * 0.8 * trip_length))
+    print ("this meant your accomodation cost $", accomodation_cost, "x", ACCOMODATION_BONUS, "x trip_length (", trip_length,"nights ) = $", trip_cost)
 else:
-    print ("\nyour accomodation cost $", accomodation_cost, "x", trip_length, "= $", (accomodation_cost * trip_length))
+    print ("\nyour accomodation cost $", accomodation_cost, "x trip_length (", trip_length,"nights ) = $", trip_cost)
+#print total again
+print("\nyour trip costs : $", trip_cost, "total (including GST)")
