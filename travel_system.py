@@ -48,8 +48,10 @@ ask = get_correct_input("press 1 to start \n>>>: ", 1)
 ask = ask_for_data("a start point", start_point_list)
 start_point = get_correct_input(">>>: ", len(start_point_list))
 
+#prints their choice
 print ("you chose", start_point_list[start_point][0], "which costs $", start_point_list[start_point][1])
 #finds startpoint connection flight cost
+
 start_point_cost = start_point_list[start_point][1]
 
 
@@ -57,6 +59,8 @@ start_point_cost = start_point_list[start_point][1]
 #user chooses destination 
 ask = ask_for_data("a destination", destination_list)
 destination = get_correct_input(">>>: ", len(destination_list))
+
+#prints their choice
 print ("you chose", destination_list[destination][0], "which costs $", destination_list[start_point][1] )
 
 #finds destination flight cost
@@ -68,6 +72,8 @@ accomodation_cost = accomodation_list[destination][1]
 
 #choose how many nights they will be staying 
 trip_length = get_correct_input("\nhow many nights will you be staying here? \n>>>: ") + 1 
+
+#prints their choice
 print ("you said you would be staying for", trip_length, "nights")
 
 
@@ -97,6 +103,6 @@ if trip_length > 2:
     print ("\nyour accomodation cost ", ACCOMODATION_BONUS * 100, "% of the original cost because you stayed more than 2 nights")
     print ("this meant your accomodation cost $", accomodation_cost, "x", ACCOMODATION_BONUS, "x trip_length (", trip_length,"nights ) = $", trip_cost)
 else:
-    print ("\nyour accomodation cost $", accomodation_cost, "x trip_length (", trip_length,"nights ) = $", trip_cost)
+    print ("\nyour accomodation cost $", accomodation_cost, "x your trip length (", trip_length,"nights ) = $", trip_cost)
 #print total again
 print("\nyour trip costs : $", trip_cost, "total (including GST)")
