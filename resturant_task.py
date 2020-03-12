@@ -36,7 +36,7 @@ def print_specials_options(l, course_specials_list):
             l_specials_len = l_specials_len+1
     return l_specials_len
         
-        
+          
 
 
 #list of entrees ["dish name", price]
@@ -53,10 +53,10 @@ mains_specials_list = [[True, mains_list, "soup of the day", 16]]
 desserts_specials_list = []
 
 #list order is saved to [entrees], [mains], [desserts]  
-order = [["entrees"], ["mains"],["deserts"]]
+order = [[], [],[]]
 
 
-ENTREES = True    
+ 
     
 
 
@@ -71,8 +71,8 @@ if ask == 0:
     
     
     #asks user what entrees they want
-
-    if ask == 0:
+    ENTREES = True
+    if ask == 0 and ENTREES == True:
         print ("current entries: ", order[0])
     #prints entrees 
         print_list_options(entrees_list)
@@ -81,18 +81,21 @@ if ask == 0:
     #asks user and assigns user choice to variable 'ask'
         entrees_input = get_correct_input(">>>: ", len(entrees_list)+len_entree_specials)
     #aks user how many of this item they would like 
-        quantity = get_correct_input("How many of these would you like?\n>>>: ", 5)
+        quantity = get_correct_input("How many of these would you like?\n>>>: ", 5) + 1
     
     
-        print(" 1)Confirm order\n 2) Order more entriees\n 3) Cancel order")
+        print(" 1) Confirm order\n 2) Order more entriees\n 3) Cancel order")
         ask = get_correct_input(">>>: ", 3)
-        if ask == 0 and ENTREES == True:
-            #assigns to order list
+        if ask == 0:
+            #assigns item and quantity to order list
             #if order is not a special
-            if entrees_input < len_entree_specials:
-                order[0].append([entrees_list[entrees_input-1], quantity])
+            if entrees_input < len(entrees_list):
+                order[0].append([entrees_list[entrees_input], quantity])
+            #if prder is a special
             else:
-                order[0].append([entree_specials_list[entrees_input-len(entrees_list)-1], quantity])
+                order[0].append([entree_specials_list[entrees_input-len(entrees_list)], quantity])
+                del(order[0][-1][0][0])
+                
         elif ask == 1:
             order[0].append([entrees_list[entrees_input], quantity])
             ENTREES = False
@@ -104,7 +107,8 @@ if ask == 0:
         
 print ("your order is :\n")
 print ("ENTREES:")
-for i in range(0, len(order[0]))
+for i in range(0, len(order[0])):
+    print (order[0][i][0][0], "x", order[0][i][1] , "= $", (order[0][i][0][1]*order[0][i][1]), "($", order[0][i][0][1], "each)")
 
 
 #edit specials
