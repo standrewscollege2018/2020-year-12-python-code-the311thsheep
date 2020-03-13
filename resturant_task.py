@@ -36,7 +36,30 @@ def print_specials_options(l, course_specials_list):
             l_specials_len = l_specials_len+1
     return l_specials_len
         
-          
+"""add to order"""
+def add_to_order(course_input, course_list, course_specials_list, quantity):
+    
+    #assigns item and quantity to order list
+    #if order is not a special
+    if course_input < len(entrees_list):
+        order[0].append([course_list[course_input], quantity])
+    #if prder is a special
+    else:
+        order[0].append([course_specials_list[course_input-len(course_list)], quantity])
+        del(order[0][-1][0][0])    
+
+"""prints order"""
+def print_order(course):
+    if course == 0:
+        print ("ENTREES:")
+    elif course == 1:
+        print ("MAINS:")
+    elif course == 2:
+        print ("DESSERTS:")
+    for i in range(0, len(order[0])):
+        print (order[course][i][0][0], "x", order[course][i][1] , "= $", (order[course][i][0][1]*order[course][i][1]), "($", order[course][i][0][1], "each)\n")
+    
+
 
 
 #list of entrees ["dish name", price]
@@ -67,42 +90,39 @@ ask = get_correct_input("What would you like to do?\n 1) Enter order\n 2) Edit s
 #enter order 
 if ask == 0:
     print ("What course?\n 1) Entree\n 2) Main\n 3) Desert")
-    ask = get_correct_input(">>>: ", 3)
+    ask_course = get_correct_input(">>>: ", 3)
     
     
     #asks user what entrees they want
-    ENTREES = True
-    if ask == 0 and ENTREES == True:
-        print ("current entries: ", order[0])
-    #prints entrees 
-        print_list_options(entrees_list)
-    #prints availables entree specials and assigns number of available entree specials to variable 'len_entree_specials'
-        len_entree_specials = print_specials_options(entrees_list, entree_specials_list)
-    #asks user and assigns user choice to variable 'ask'
-        entrees_input = get_correct_input(">>>: ", len(entrees_list)+len_entree_specials)
-    #aks user how many of this item they would like 
-        quantity = get_correct_input("How many of these would you like?\n>>>: ", 5) + 1
-    
-    
-        print(" 1) Confirm order\n 2) Order more entriees\n 3) Cancel order")
-        ask = get_correct_input(">>>: ", 3)
-        if ask == 0:
-            #assigns item and quantity to order list
-            #if order is not a special
-            if entrees_input < len(entrees_list):
-                order[0].append([entrees_list[entrees_input], quantity])
-            #if prder is a special
+    if ask_course == 0:
+        print (entree_specials_list)
+        ENTREES = True
+        while ENTREES == True:
+            print ("current order: ")
+            print_order(0)
+        #prints entrees 
+            print_list_options(entrees_list)
+        #prints availables entree specials and assigns number of available entree specials to variable 'len_entree_specials'
+            len_entree_specials = print_specials_options(entrees_list, entree_specials_list)
+        #asks user and assigns user choice to variable 'ask'
+            entrees_input = get_correct_input(">>>: ", len(entrees_list)+len_entree_specials)
+        #aks user how many of this item they would like 
+            quantity = get_correct_input("How many of these would you like?\n>>>: ", 5) + 1
+        
+        
+            print(" 1) Confirm order\n 2) Order more entriees\n 3) Cancel order")
+            ask_reloop = get_correct_input(">>>: ", 3)
+            if ask_reloop == 0:
+                add_to_order(entrees_input, entrees_list, entree_specials_list, quantity)
+                break        
+            elif ask_reloop == 1:
+                add_to_order(entrees_input, entrees_list, entree_specials_list, quantity)
             else:
-                order[0].append([entree_specials_list[entrees_input-len(entrees_list)], quantity])
-                del(order[0][-1][0][0])
-                
-        elif ask == 1:
-            order[0].append([entrees_list[entrees_input], quantity])
-            ENTREES = False
+                break 
        
             
     #asks user what mains they want    
-    elif ask == 1:
+    elif ask_course == 1:
         print()
         
 print ("your order is :\n")
