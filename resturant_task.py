@@ -4,7 +4,7 @@
 
 
 """asks again if user enters str or out of range value when asking for int"""
-def get_correct_input(prompt, length = 10000):
+def get_correct_input(prompt, length = 5):
     while True:
         try:
             value = int(input(prompt))-1
@@ -17,6 +17,16 @@ def get_correct_input(prompt, length = 10000):
                 print ("that value is not in range")        
     return value 
 
+"""add specials to available specials list"""
+def add_to_today(l, course_specials_list):
+    for i in range(0, len(course_specials_list)):
+        #if special is currently available
+        if course_specials_list[i][0] == True:
+            #adds to available today list 
+            l.append(course_specials_list[i])
+            #deletes boolean
+            del(l[-1][0])    
+
 
 """prints options from a list """
 def print_list_options(l):
@@ -25,16 +35,11 @@ def print_list_options(l):
         
 """print specials options"""
 def print_specials_options(l, course_specials_list):
-    l_specials_len = 0
     print ("SPECIALS")
     for i in range(0, len(course_specials_list)):
-        #if special is currently available
-        if course_specials_list[i][0] == True:
-            #prints index and name of special and price
-            print(i+len(l)+1, ") ", course_specials_list[i][1], ", $", course_specials_list[i][2])
-            #records length of available specials in this course
-            l_specials_len = l_specials_len+1
-    return l_specials_len
+        #prints index and name of special and price
+        print(i+len(l)+1, ") ", course_specials_list[i][0], ", $", course_specials_list[i][1])
+            
         
 """add to order"""
 def add_to_order(course_input, course_list, course_specials_list, quantity):
@@ -46,15 +51,15 @@ def add_to_order(course_input, course_list, course_specials_list, quantity):
     #if prder is a special
     else:
         order[0].append([course_specials_list[course_input-len(course_list)], quantity])
-        del(order[0][-1][0][0])    
+           
 
 """prints order"""
 def print_order(course):
-    if course == 0:
+    if course == 0 and order[0] != None:
         print ("ENTREES:")
-    elif course == 1:
+    elif course == 1 and order[1] != None:
         print ("MAINS:")
-    elif course == 2:
+    elif course == 2 and order[2] != None:
         print ("DESSERTS:")
     for i in range(0, len(order[0])):
         print (order[course][i][0][0], "x", order[course][i][1] , "= $", (order[course][i][0][1]*order[course][i][1]), "($", order[course][i][0][1], "each)\n")
@@ -70,25 +75,32 @@ mains_list = [["burger", 20], ["Soup", 22], ["Toastie", 18]]
 deserts_list = [["Ice cream", 10], ["Cake", 13],["Cheesecake", 15]]
 
 
-#list of specials[is_available, dish_name, price]
-entree_specials_list = [[True, "Cerial of the day", 15]]
-mains_specials_list = [[True, mains_list, "soup of the day", 16]]
+#list of specials[is_available, dish_name, price] including not available 
+all_entree_specials_list = [[True, "Cerial of the day", 15], [False, "fish of the day", 20], [True, "omlette of the day", 13]]
+all_mains_specials_list = [[True, mains_list, "soup of the day", 16]]
+all_desserts_specials_list = []
+
+#list of specials available today
+entree_specials_list = []
+mains_specials_list = []
 desserts_specials_list = []
 
 #list order is saved to [entrees], [mains], [desserts]  
 order = [[], [],[]]
 
 
- 
-    
-
-
-     
-
 
 ask = get_correct_input("What would you like to do?\n 1) Enter order\n 2) Edit specials\n>>>: ", 2)
 #enter order 
 if ask == 0:
+    
+    #adds current specails to available list 
+    add_to_today(entree_specials_list, all_entree_specials_list)
+    add_to_today(mains_specials_list, all_mains_specials_list)
+    add_to_today(desserts_specials_list, all_desserts_specials_list)
+               
+    
+    
     print ("What course?\n 1) Entree\n 2) Main\n 3) Desert")
     ask_course = get_correct_input(">>>: ", 3)
     
@@ -98,18 +110,16 @@ if ask == 0:
         print (entree_specials_list)
         ENTREES = True
         while ENTREES == True:
-            print ("current order: ")
-            print_order(0)
         #prints entrees 
             print_list_options(entrees_list)
         #prints availables entree specials and assigns number of available entree specials to variable 'len_entree_specials'
-            len_entree_specials = print_specials_options(entrees_list, entree_specials_list)
+            print_specials_options(entrees_list, entree_specials_list)
         #asks user and assigns user choice to variable 'ask'
-            entrees_input = get_correct_input(">>>: ", len(entrees_list)+len_entree_specials)
+            entrees_input = get_correct_input(">>>: ", len(entrees_list)+len(entree_specials_list))
         #aks user how many of this item they would like 
-            quantity = get_correct_input("How many of these would you like?\n>>>: ", 5) + 1
+            quantity = get_correct_input("How many of these would you like?\n>>>: ") + 1
         
-        
+
             print(" 1) Confirm order\n 2) Order more entriees\n 3) Cancel order")
             ask_reloop = get_correct_input(">>>: ", 3)
             if ask_reloop == 0:
@@ -126,7 +136,9 @@ if ask == 0:
         print()
         
 print ("your order is :\n")
-print ("ENTREES:")
+
+
+
 for i in range(0, len(order[0])):
     print (order[0][i][0][0], "x", order[0][i][1] , "= $", (order[0][i][0][1]*order[0][i][1]), "($", order[0][i][0][1], "each)")
 
